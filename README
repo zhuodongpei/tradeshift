@@ -1,0 +1,37 @@
+Dongpei Zhuo's Tradeshift coding challenge solution
+
+Using flask, I was able to build a tree application with APIs for 
+1. Get descendants of a node
+2. Update parent of a node
+3. Create a new node 
+
+I also built simple UIs for the first 2 endpoints but not the 3rd one (create node).
+
+I only stored the index and parent_id in a SQLite table named "tree". The level is calculated on the fly, although cached in python.
+The convention is
+1. If the node's parent_id is 0, then it is a root node
+
+I am new to Docker and was not able to dockerize my app. I think I got close 
+except that I failed to have docker run "flask init-db" step. 
+The steps to run my app are:
+
+1. unzip tradeshift.zip
+$ gzip -cd tradeshift.tar.gz |tar xf -
+2. In current directory (not the tradeshift directory that was produced by unzipping):
+$ export FLASK_APP=flaskr
+$ export FLASK_APP=tradeshift
+$ flask init-db 
+$ flask run
+
+The flask init-db step is only needed the first time you run this. If you want 
+data to persist between runs, do not run it subseqently unless you want to erase
+the whole tree.
+
+3. To create some nodes in the tree, use curl like the following:
+
+$ curl -v -H "Content-Type: application/json" -X POST -d '{"id" : 1, "parent_id" : 0}' http://127.0.0.1:5000/plain/create
+$ curl -v -H "Content-Type: application/json" -X POST -d '{"id" : 2, "parent_id" : 1}' http://127.0.0.1:5000/plain/create
+$ curl -v -H "Content-Type: application/json" -X POST -d '{"id" : 3, "parent_id" : 1}' http://127.0.0.1:5000/plain/create
+$ curl -v -H "Content-Type: application/json" -X POST -d '{"id" : 4, "parent_id" : 2}' http://127.0.0.1:5000/plain/create
+
+4. To use the UI, point your browser to http://127.0.0.1:5000/
