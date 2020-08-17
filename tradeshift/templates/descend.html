@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Get Descendants{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="username">Node Id</label>
+    <input name="node_id" id="node_id" required>
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

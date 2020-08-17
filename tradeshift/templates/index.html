@@ -1,0 +1,20 @@
+<!doctype html>
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Nodes{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Parent</th>
+      <th>Root</th>
+      <th>Level</th>
+    </tr>
+  {% for post in nodes %}
+          <tr> <td> {{ post['id'] }} <td> {{ post['parent_id'] }} <td> {{ post['root'] }} <td> {{ post['level'] }}</tr>
+  {% endfor %}
+  </table>
+{% endblock %}
